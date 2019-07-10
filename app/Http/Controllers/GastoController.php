@@ -3,9 +3,10 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Gasto;
 use App\Viaje;
 
-class ViajeController extends Controller
+class GastoController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -15,7 +16,7 @@ class ViajeController extends Controller
     public function index(Request $request)
     {
         //
-	    return response()->json($request->user()->viajes()->with('gastos')->get());
+	    return response()->json($request->user()->gastos()->get());
     }
 
     /**
@@ -37,14 +38,15 @@ class ViajeController extends Controller
 	public function store(Request $request)
 	{
 	//
-		$viaje = new Viaje();
-		$viaje->motivo=$request->motivo;
-		$viaje->anticipo=$request->anticipo;
-		$viaje->inicio=$request->inicio;
-		$viaje->fin=$request->fin;
-		$viaje->user_id=$request->user()->id;
-		$viaje->save();
-		return response()->json($viaje, 201);
+		$gasto = new Gasto();
+		$gasto->costo=$request->costo;
+		$gasto->motivo=$request->motivo;
+		$gasto->viaje_id=$request->viaje_id;
+		$gasto->user_id=$request->user()->id;
+		$gasto->save();
+		$sum=Gasto::where('viaje_id',$request->viaje_id)->sum('costo');
+		$viaje=Viaje::find($request->viaje_id);
+		return response()->json(['gasto'=>$gasto,'disponible'=>$viaje->anticipo-$sum], 201);
 	}
 
     /**
@@ -79,12 +81,9 @@ class ViajeController extends Controller
     public function update(Request $request, Viaje $viaje)
     {
         //
-	$viaje->motivo=$request->motivo;
-	$viaje->anticipo=$request->anticipo;
-	$viaje->inicio=$request->inicio;
-	$viaje->fin=$request->fin;
-	$viaje->update();
-	return response()->json($viaje, 200);
+	$gasto->costo=$request->costo;
+	$gasto->motivo=$request->motivo;
+	return response()->json($gasto, 200);
     }
 
     /**
@@ -93,10 +92,10 @@ class ViajeController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Viaje $viaje)
+    public function destroy(Gasto $gasto)
     {
         //
-	$viaje->delete();
+	$gasto->delete();
 	return response()->json(null, 204);
     }
 }

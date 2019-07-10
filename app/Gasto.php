@@ -4,15 +4,15 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 
-class Viaje extends Model
+class Gasto extends Model
 {
 	//
 	public function user()
 	{
 		return $this->belongsTo('App\User');
 	}
-	public function gastos()
+	public function viaje()
 	{
-		return $this->hasMany('App\Gasto');
+		return $this->belongsTo('App\Viaje');
 	}
 }
