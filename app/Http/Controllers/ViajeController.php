@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Database\Eloquent\Builder;
 use App\Viaje;
 
 class ViajeController extends Controller
@@ -15,7 +16,22 @@ class ViajeController extends Controller
     public function index(Request $request)
     {
         //
-	    return response()->json($request->user()->viajes()->with('gastos')->get());
+	    //$viajes=$request->user()->viajes()->with('gastos')->get()->toarray();
+	    $viajes=$request->user()->viajes()
+		    ->orderBy('created_at','desc')
+		    ->with(['gastos'=>function($q){
+			    $q->orderBy('created_at','desc');
+	    		}]
+		    )->get()->toarray();
+	    
+	    foreach ($viajes as $k=>$v) {
+	    	$gasto_total=array_reduce($v['gastos'],function($v,$w){
+			return $v+$w['costo'];
+		});
+		$viajes[$k]['anticipo']=number_format($viajes[$k]['anticipo'],2);
+		$viajes[$k]['disponible']=number_format($v['anticipo']-$gasto_total,2);
+	    }
+	    return response()->json($viajes);
     }
 
     /**
@@ -98,5 +114,12 @@ class ViajeController extends Controller
         //
 	$viaje->delete();
 	return response()->json(null, 204);
+    }
+    public function finalizar(Request $request, Viaje $viaje)
+    {
+        //
+	$viaje->status='Finalizado';
+	$viaje->update();
+	return response()->json($viaje, 200);
     }
 }

@@ -25,5 +25,6 @@ Route::group(['prefix' => 'auth'], function () {
         Route::get('user', 'AuthController@user');
         Route::resource('viaje', 'ViajeController');
         Route::resource('gasto', 'GastoController');
+        Route::put('finalizarviaje/{viaje}', 'ViajeController@finalizar');
     });
 });

@@ -19,6 +19,7 @@ class CreateViajesTable extends Migration
             $table->decimal('anticipo',8,2);
 	    $table->date('inicio');
 	    $table->date('fin');
+	    $table->string('status')->default('En Curso');
 	    $table->unsignedBigInteger('user_id');
 	    $table->foreign('user_id')->references('id')->on('users');
             $table->timestamps();

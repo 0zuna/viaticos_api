@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Database\Eloquent\Builder;
+
 use App\Gasto;
 use App\Viaje;
 
@@ -41,12 +43,28 @@ class GastoController extends Controller
 		$gasto = new Gasto();
 		$gasto->costo=$request->costo;
 		$gasto->motivo=$request->motivo;
+		if($request->motivo=='Otros')
+			$gasto->motivo=$request->especificacion;
 		$gasto->viaje_id=$request->viaje_id;
 		$gasto->user_id=$request->user()->id;
 		$gasto->save();
 		$sum=Gasto::where('viaje_id',$request->viaje_id)->sum('costo');
 		$viaje=Viaje::find($request->viaje_id);
-		return response()->json(['gasto'=>$gasto,'disponible'=>$viaje->anticipo-$sum], 201);
+		$viajes=$request->user()->viajes()->orderBy('created_at','desc')->with(['gastos'=>function($q){$q->orderBy('created_at','desc');}])->get()->toarray();
+		foreach ($viajes as $k=>$v) {
+			$gasto_total=array_reduce($v['gastos'],function($v,$w){
+				return $v+$w['costo'];
+			});
+			$viajes[$k]['anticipo']=number_format($viajes[$k]['anticipo'],2);
+			$viajes[$k]['disponible']=number_format($v['anticipo']-$gasto_total,2);
+		}
+		$gastos=$viaje->gastos();
+		$path = storage_path().'/img/'.$request->user()->id.'/'.$request->viaje_id;
+		if(!\File::exists($path)) {
+			\File::makeDirectory($path, $mode = 0777, true, true);
+		}
+		file_put_contents($path.'/'.$gasto->id.'.png', base64_decode($request->imagen));
+		return response()->json(['gastos'=>$gastos,'disponible'=>$viaje->anticipo-$sum,'viajes'=>$viajes], 201);
 	}
 
     /**
