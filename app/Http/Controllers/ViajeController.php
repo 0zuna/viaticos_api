@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Database\Eloquent\Builder;
 use App\Viaje;
+use App\Anticipo;
 
 class ViajeController extends Controller
 {
@@ -21,15 +22,19 @@ class ViajeController extends Controller
 		    ->orderBy('created_at','desc')
 		    ->with(['gastos'=>function($q){
 			    $q->orderBy('created_at','desc');
-	    		}]
-		    )->get()->toarray();
+	    		},'anticipos']
+		    )
+		    ->get()->toarray();
 	    
 	    foreach ($viajes as $k=>$v) {
 	    	$gasto_total=array_reduce($v['gastos'],function($v,$w){
 			return $v+$w['costo'];
 		});
-		$viajes[$k]['anticipo']=number_format($viajes[$k]['anticipo'],2);
-		$viajes[$k]['disponible']=number_format($v['anticipo']-$gasto_total,2);
+	    	$anticipo=array_reduce($v['anticipos'],function($v,$w){
+			return $v+$w['anticipo'];
+		});
+		$viajes[$k]['anticipo']=number_format($anticipo,2);
+		$viajes[$k]['disponible']=number_format($anticipo-$gasto_total,2);
 	    }
 	    return response()->json($viajes);
     }
@@ -55,7 +60,6 @@ class ViajeController extends Controller
 	//
 		$viaje = new Viaje();
 		$viaje->motivo=$request->motivo;
-		$viaje->anticipo=$request->anticipo;
 		$viaje->inicio=$request->inicio;
 		$viaje->fin=$request->fin;
 		$viaje->user_id=$request->user()->id;

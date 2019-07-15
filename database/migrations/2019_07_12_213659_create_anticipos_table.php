@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateViajesTable extends Migration
+class CreateAnticiposTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,12 +13,11 @@ class CreateViajesTable extends Migration
      */
     public function up()
     {
-        Schema::create('viajes', function (Blueprint $table) {
+        Schema::create('anticipos', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->string('motivo');
-	    $table->date('inicio');
-	    $table->date('fin');
-	    $table->string('status')->default('En Curso');
+            $table->decimal('anticipo',8,2);
+	    $table->unsignedBigInteger('viaje_id');
+	    $table->foreign('viaje_id')->references('id')->on('viajes');
 	    $table->unsignedBigInteger('user_id');
 	    $table->foreign('user_id')->references('id')->on('users');
             $table->timestamps();
@@ -32,6 +31,6 @@ class CreateViajesTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('viajes');
+        Schema::dropIfExists('anticipos');
     }
 }

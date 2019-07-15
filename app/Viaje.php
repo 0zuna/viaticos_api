@@ -15,4 +15,8 @@ class Viaje extends Model
 	{
 		return $this->hasMany('App\Gasto');
 	}
+	public function anticipos()
+	{
+		return $this->hasMany('App\Anticipo');
+	}
 }

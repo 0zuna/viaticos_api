@@ -7,8 +7,9 @@ use Illuminate\Database\Eloquent\Builder;
 
 use App\Gasto;
 use App\Viaje;
+use App\Anticipo;
 
-class GastoController extends Controller
+class AnticipoController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -18,7 +19,7 @@ class GastoController extends Controller
     public function index(Request $request)
     {
         //
-	    return response()->json($request->user()->gastos()->get());
+	    return response()->json($request->user()->anticipos()->get());
     }
 
     /**
@@ -40,17 +41,19 @@ class GastoController extends Controller
 	public function store(Request $request)
 	{
 	//
-		$gasto = new Gasto();
-		$gasto->costo=$request->costo;
-		$gasto->motivo=$request->motivo;
-		if($request->motivo=='Otros')
-			$gasto->motivo=$request->especificacion;
-		$gasto->viaje_id=$request->viaje_id;
-		$gasto->user_id=$request->user()->id;
-		$gasto->save();
-		$sum=Gasto::where('viaje_id',$request->viaje_id)->sum('costo');
-		$viaje=Viaje::find($request->viaje_id);
-		$viajes=$request->user()->viajes()->orderBy('created_at','desc')->with(['gastos'=>function($q){$q->orderBy('created_at','desc');},'anticipos'])->get()->toarray();
+		$anticipo = new Anticipo();
+		$anticipo->anticipo=$request->NewAnticipo;
+		$anticipo->user_id=$request->user()->id;
+		$anticipo->viaje_id=$request->id;
+		$anticipo->save();
+	    	
+		$viajes=$request->user()->viajes()
+		    ->orderBy('created_at','desc')
+		    ->with(['gastos'=>function($q){
+			    $q->orderBy('created_at','desc');
+	    		},'anticipos']
+		    )
+		    ->get()->toarray();
 	    	foreach ($viajes as $k=>$v) {
 	    		$gasto_total=array_reduce($v['gastos'],function($v,$w){
 				return $v+$w['costo'];
@@ -61,14 +64,8 @@ class GastoController extends Controller
 			$viajes[$k]['anticipo']=number_format($anticipo,2);
 			$viajes[$k]['disponible']=number_format($anticipo-$gasto_total,2);
 		}
-		$gastos=$viaje->gastos();
-		$anticipos=$viaje->anticipos();
-		$path = storage_path().'/img/'.$request->user()->id.'/'.$request->viaje_id;
-		if(!\File::exists($path)) {
-			\File::makeDirectory($path, $mode = 0777, true, true);
-		}
-		file_put_contents($path.'/'.$gasto->id.'.png', base64_decode($request->imagen));
-		return response()->json(['gastos'=>$gastos,'disponible'=>$anticipos->sum('anticipo')-$sum,'viajes'=>$viajes], 201);
+		//return response()->json($anticipo, 201);
+		return response()->json($viajes, 201);
 	}
 
     /**
@@ -100,12 +97,12 @@ class GastoController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Viaje $viaje)
+    public function update(Request $request, Anticipo $anticipo)
     {
         //
-	$gasto->costo=$request->costo;
-	$gasto->motivo=$request->motivo;
-	return response()->json($gasto, 200);
+	$anticipo->anticipo=$request->anticipo;
+	$anticipo->update();
+	return response()->json($anticipo, 200);
     }
 
     /**
@@ -114,10 +111,10 @@ class GastoController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Gasto $gasto)
+    public function destroy(Anticipo $anticipo)
     {
         //
-	$gasto->delete();
+	$anticipo->delete();
 	return response()->json(null, 204);
     }
 }
