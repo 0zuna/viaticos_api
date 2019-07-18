@@ -20,7 +20,7 @@ class CreateViajesTable extends Migration
 	    $table->date('fin');
 	    $table->string('status')->default('En Curso');
 	    $table->unsignedBigInteger('user_id');
-	    $table->foreign('user_id')->references('id')->on('users');
+	    $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
             $table->timestamps();
         });
     }

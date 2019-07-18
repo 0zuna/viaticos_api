@@ -17,9 +17,9 @@ class CreateAnticiposTable extends Migration
             $table->bigIncrements('id');
             $table->decimal('anticipo',8,2);
 	    $table->unsignedBigInteger('viaje_id');
-	    $table->foreign('viaje_id')->references('id')->on('viajes');
+	    $table->foreign('viaje_id')->references('id')->on('viajes')->onDelete('cascade');
 	    $table->unsignedBigInteger('user_id');
-	    $table->foreign('user_id')->references('id')->on('users');
+	    $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
             $table->timestamps();
         });
     }

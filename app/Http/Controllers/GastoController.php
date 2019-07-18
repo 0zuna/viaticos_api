@@ -63,11 +63,11 @@ class GastoController extends Controller
 		}
 		$gastos=$viaje->gastos();
 		$anticipos=$viaje->anticipos();
-		$path = storage_path().'/img/'.$request->user()->id.'/'.$request->viaje_id;
+		$path = storage_path().'/img/'.$request->user()->id.'/viajes/'.$request->viaje_id;
 		if(!\File::exists($path)) {
 			\File::makeDirectory($path, $mode = 0777, true, true);
 		}
-		file_put_contents($path.'/'.$gasto->id.'.png', base64_decode($request->imagen));
+		file_put_contents($path.'/'.$gasto->id.'.jpg', base64_decode($request->imagen));
 		return response()->json(['gastos'=>$gastos,'disponible'=>$anticipos->sum('anticipo')-$sum,'viajes'=>$viajes], 201);
 	}
 
