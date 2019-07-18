@@ -29,6 +29,13 @@ class AdminController extends Controller
 	global $i,$f;
 	$i= Carbon::parse($request->inicio)->startOfDay()->toDateTimeString();
 	$f= Carbon::parse($request->fin)->startOfDay()->toDateTimeString();
+	if($request->users[0]=='todos'){
+	$viajes=User::with(['viajes'=>function($q){
+			global $i,$f;
+			$q->whereBetween('inicio',[$i,$f])->with(['gastos','anticipos']);
+		}])
+		->get();
+	}else{
 	$viajes=User::whereIn('id',$request->users)
 		->with(['viajes'=>function($q){
 			global $i,$f;
@@ -36,7 +43,7 @@ class AdminController extends Controller
 		}])
 		->get();
 		//whereBetween('inicio',[$i,$f])->with(['gastos','anticipos'])->get();
-
+	}
 	    return response()->json($viajes);
     }
     public function excel(Request $request)
@@ -51,6 +58,19 @@ class AdminController extends Controller
 			$q->whereBetween('inicio',[$i,$f])->with(['gastos','anticipos']);
 		}])
 		->get();*/
+	if($request->users[0]=='todos'){
+	 $viajes=\DB::table('users')
+		//->join('anticipos','users.id','anticipos.user_id')
+		->join('viajes','viajes.user_id','users.id')
+		//->join('gastos','gastos.viaje_id','viajes.id')
+		->select('departamento','colaborador','telefono','viajes.motivo','inicio','fin')
+		->selectRaw('(select sum(anticipos.anticipo) from anticipos where viaje_id=viajes.id) as anticipo')
+		->selectRaw('(select sum(gastos.costo) from gastos where viaje_id=viajes.id) as gasto')
+		->selectRaw('((select sum(anticipos.anticipo) from anticipos where viaje_id=viajes.id)-(select sum(gastos.costo) from gastos where viaje_id=viajes.id)) as diferencia')
+		->groupBy('viajes.id','departamento','colaborador','telefono','viajes.motivo','inicio','fin')
+		->whereBetween('viajes.inicio',[$i,$f])
+		->get();
+	}else{
 	 $viajes=\DB::table('users')
 		//->join('anticipos','users.id','anticipos.user_id')
 		->join('viajes','viajes.user_id','users.id')
@@ -64,7 +84,7 @@ class AdminController extends Controller
 		->whereBetween('viajes.inicio',[$i,$f])
 		->get();
 		//whereBetween('inicio',[$i,$f])->with(['gastos','anticipos'])->get();
-
+	}
 	    return Excel::download(new ViajesExport($viajes),'viajes.xlsx');
 	    return response()->json($viajes);
     }

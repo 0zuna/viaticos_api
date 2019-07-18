@@ -32,7 +32,7 @@ const Viajes=()=> {
 		axios.get('/viaje',{params: {...data,users:users}})
 		.then((r)=>{
 			setViajes(r.data)
-		})
+		}).catch(r=>setViajes([]))
 	}
 	const _excel=()=>{
 		var users=$('#js-example-basic-multiple').select2('val')
@@ -245,6 +245,7 @@ const Viajes=()=> {
 			<div>
 				<p>User</p>
 				<select onChange={()=>setData({...data,users:$('#js-example-basic-multiple').select2('val')})} style={{width:200}} id="js-example-basic-multiple" name="states[]" multiple="multiple">
+					<option value='todos'>Todos</option>
 					{users.map((user,i)=><option key={i} value={user.id}>{user.colaborador}</option>)}
 				</select>
 				<button onClick={_buscar} type="button" className="btn btn-dark">Buscar</button>

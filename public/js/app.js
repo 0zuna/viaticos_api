@@ -72138,6 +72138,8 @@ var Viajes = function Viajes() {
       })
     }).then(function (r) {
       setViajes(r.data);
+    })["catch"](function (r) {
+      return setViajes([]);
     });
   };
 
@@ -72497,7 +72499,9 @@ var Viajes = function Viajes() {
     id: "js-example-basic-multiple",
     name: "states[]",
     multiple: "multiple"
-  }, users.map(function (user, i) {
+  }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("option", {
+    value: "todos"
+  }, "Todos"), users.map(function (user, i) {
     return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("option", {
       key: i,
       value: user.id
