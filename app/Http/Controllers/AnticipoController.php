@@ -66,7 +66,8 @@ class AnticipoController extends Controller
 			$viajes[$k]['disponible']=number_format($anticipo-$gasto_total,2);
 		}
 		//return response()->json($anticipo, 201);
-		$path = storage_path().'/img/'.$request->user()->id.'/viajes/anticipos/'.$request->viaje_id;
+		$path = storage_path().'/img/'.$request->user()->id.'/viajes/'.$request->id.'/anticipos';
+		\Log::info($path);
 		if(!\File::exists($path)) {
 			\File::makeDirectory($path, $mode = 0777, true, true);
 		}

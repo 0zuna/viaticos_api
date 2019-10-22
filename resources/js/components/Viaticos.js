@@ -108,6 +108,7 @@ const Viajes=()=> {
 								<th scope="col">#</th>
 								<th scope="col">Anticipo</th>
 								<th scope="col">Fecha</th>
+								<th scope="col">Foto</th>
 								<th scope="col">eliminar</th>
 							</tr>
 						</thead>
@@ -117,6 +118,9 @@ const Viajes=()=> {
 								<th scope="row">{i+1}</th>
 								<td>${a.anticipo}</td>
 								<td>{a.created_at}</td>
+								<td>
+								<img style={{height:100}} src={axios.defaults.baseURL+'img/'+a.user_id+'/viajes/'+a.viaje_id+'/anticipos/'+a.id+'.jpg'} alt="imagen" className="img-thumbnail"/>
+								</td>
 								<td><a href='#' onClick={()=>_destroyAnticipo(a)} >eliminar</a></td>
 							</tr>
 							)
@@ -172,7 +176,7 @@ const Viajes=()=> {
 								<td>${g.costo}</td>
 								<td>{g.created_at}</td>
 								<td>
-								<img style={{height:100}} src={axios.defaults.baseURL+'img/'+g.user_id+'/viajes/'+g.viaje_id+'/'+g.id+'.jpg'} alt="imagen" className="img-thumbnail"/>
+								<img style={{height:100}} src={axios.defaults.baseURL+'img/'+g.user_id+'/viajes/'+g.viaje_id+'/gastos/'+g.id+'.jpg'} alt="imagen" className="img-thumbnail"/>
 								</td>
 								<td><a href='#' onClick={()=>_destroyGasto(g)} >eliminar</a></td>
 							</tr>

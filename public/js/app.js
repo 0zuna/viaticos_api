@@ -72265,12 +72265,21 @@ var Viajes = function Viajes() {
     scope: "col"
   }, "Fecha"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("th", {
     scope: "col"
+  }, "Foto"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("th", {
+    scope: "col"
   }, "eliminar"))), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("tbody", null, anticipos.map(function (a, i) {
     return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("tr", {
       key: i
     }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("th", {
       scope: "row"
-    }, i + 1), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("td", null, "$", a.anticipo), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("td", null, a.created_at), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("td", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("a", {
+    }, i + 1), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("td", null, "$", a.anticipo), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("td", null, a.created_at), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("td", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("img", {
+      style: {
+        height: 100
+      },
+      src: axios.defaults.baseURL + 'img/' + a.user_id + '/viajes/' + a.viaje_id + '/anticipos/' + a.id + '.jpg',
+      alt: "imagen",
+      className: "img-thumbnail"
+    })), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("td", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("a", {
       href: "#",
       onClick: function onClick() {
         return _destroyAnticipo(a);
@@ -72357,7 +72366,7 @@ var Viajes = function Viajes() {
       style: {
         height: 100
       },
-      src: axios.defaults.baseURL + 'img/' + g.user_id + '/viajes/' + g.viaje_id + '/' + g.id + '.jpg',
+      src: axios.defaults.baseURL + 'img/' + g.user_id + '/viajes/' + g.viaje_id + '/gastos/' + g.id + '.jpg',
       alt: "imagen",
       className: "img-thumbnail"
     })), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("td", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("a", {
