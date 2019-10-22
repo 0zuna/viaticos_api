@@ -130,6 +130,7 @@ class ViajeController extends Controller
     {
 	$viaje=Viaje::find($viaje->id);
 	$viaje->fin=$request->fin;
+	$viaje->update();
 	return response()->json($viaje, 200);
     }
 }
