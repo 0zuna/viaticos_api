@@ -46,6 +46,7 @@ class AnticipoController extends Controller
 		$anticipo->user_id=$request->user()->id;
 		$anticipo->viaje_id=$request->id;
 		$anticipo->save();
+		$id=$anticipo->id;
 	    	
 		$viajes=$request->user()->viajes()
 		    ->orderBy('created_at','desc')
@@ -65,6 +66,11 @@ class AnticipoController extends Controller
 			$viajes[$k]['disponible']=number_format($anticipo-$gasto_total,2);
 		}
 		//return response()->json($anticipo, 201);
+		$path = storage_path().'/img/'.$request->user()->id.'/viajes/anticipos/'.$request->viaje_id;
+		if(!\File::exists($path)) {
+			\File::makeDirectory($path, $mode = 0777, true, true);
+		}
+		file_put_contents($path.'/'.$id.'.jpg', base64_decode($request->imagen));
 		return response()->json($viajes, 201);
 	}
 

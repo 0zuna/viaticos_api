@@ -126,4 +126,10 @@ class ViajeController extends Controller
 	$viaje->update();
 	return response()->json($viaje, 200);
     }
+    public function extendDate(Request $request, Viaje $viaje)
+    {
+	$viaje=Viaje::find($viaje->id);
+	$viaje->fin=$request->fin;
+	return response()->json($viaje, 200);
+    }
 }

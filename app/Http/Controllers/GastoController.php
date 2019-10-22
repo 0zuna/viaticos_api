@@ -63,7 +63,7 @@ class GastoController extends Controller
 		}
 		$gastos=$viaje->gastos();
 		$anticipos=$viaje->anticipos();
-		$path = storage_path().'/img/'.$request->user()->id.'/viajes/'.$request->viaje_id;
+		$path = storage_path().'/img/'.$request->user()->id.'/viajes/gastos/'.$request->viaje_id;
 		if(!\File::exists($path)) {
 			\File::makeDirectory($path, $mode = 0777, true, true);
 		}
