@@ -26,6 +26,7 @@ Route::group(['prefix' => 'auth'], function () {
         Route::resource('viaje', 'ViajeController');
         Route::resource('gasto', 'GastoController');
         Route::resource('anticipo', 'AnticipoController');
+        Route::put('extendDate/{viaje}', 'ViajeController@extendDate');
         Route::put('finalizarviaje/{viaje}', 'ViajeController@finalizar');
     });
 });

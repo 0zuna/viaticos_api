@@ -72021,25 +72021,23 @@ if (token) {
 
 /***/ }),
 
-/***/ "./resources/js/components/Viaticos.js":
-/*!*********************************************!*\
-  !*** ./resources/js/components/Viaticos.js ***!
-  \*********************************************/
-/*! no exports provided */
+/***/ "./resources/js/components/ModalAnticipo.js":
+/*!**************************************************!*\
+  !*** ./resources/js/components/ModalAnticipo.js ***!
+  \**************************************************/
+/*! exports provided: default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var react_dom__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react-dom */ "./node_modules/react-dom/index.js");
-/* harmony import */ var react_dom__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(react_dom__WEBPACK_IMPORTED_MODULE_1__);
-/* harmony import */ var react_day_picker__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! react-day-picker */ "./node_modules/react-day-picker/DayPicker.js");
-/* harmony import */ var react_day_picker__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(react_day_picker__WEBPACK_IMPORTED_MODULE_2__);
-/* harmony import */ var react_day_picker_DayPickerInput__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! react-day-picker/DayPickerInput */ "./node_modules/react-day-picker/DayPickerInput.js");
-/* harmony import */ var react_day_picker_DayPickerInput__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(react_day_picker_DayPickerInput__WEBPACK_IMPORTED_MODULE_3__);
-/* harmony import */ var react_day_picker_lib_style_css__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! react-day-picker/lib/style.css */ "./node_modules/react-day-picker/lib/style.css");
-/* harmony import */ var react_day_picker_lib_style_css__WEBPACK_IMPORTED_MODULE_4___default = /*#__PURE__*/__webpack_require__.n(react_day_picker_lib_style_css__WEBPACK_IMPORTED_MODULE_4__);
+function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { keys.push.apply(keys, Object.getOwnPropertySymbols(object)); } if (enumerableOnly) keys = keys.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); return keys; }
+
+function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { ownKeys(source, true).forEach(function (key) { _defineProperty(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { ownKeys(source).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
+
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
 function _toConsumableArray(arr) { return _arrayWithoutHoles(arr) || _iterableToArray(arr) || _nonIterableSpread(); }
 
 function _nonIterableSpread() { throw new TypeError("Invalid attempt to spread non-iterable instance"); }
@@ -72048,153 +72046,44 @@ function _iterableToArray(iter) { if (Symbol.iterator in Object(iter) || Object.
 
 function _arrayWithoutHoles(arr) { if (Array.isArray(arr)) { for (var i = 0, arr2 = new Array(arr.length); i < arr.length; i++) { arr2[i] = arr[i]; } return arr2; } }
 
-function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { keys.push.apply(keys, Object.getOwnPropertySymbols(object)); } if (enumerableOnly) keys = keys.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); return keys; }
-
-function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { ownKeys(source, true).forEach(function (key) { _defineProperty(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { ownKeys(source).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
-
-function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
-
-function _slicedToArray(arr, i) { return _arrayWithHoles(arr) || _iterableToArrayLimit(arr, i) || _nonIterableRest(); }
-
-function _nonIterableRest() { throw new TypeError("Invalid attempt to destructure non-iterable instance"); }
-
-function _iterableToArrayLimit(arr, i) { var _arr = []; var _n = true; var _d = false; var _e = undefined; try { for (var _i = arr[Symbol.iterator](), _s; !(_n = (_s = _i.next()).done); _n = true) { _arr.push(_s.value); if (i && _arr.length === i) break; } } catch (err) { _d = true; _e = err; } finally { try { if (!_n && _i["return"] != null) _i["return"](); } finally { if (_d) throw _e; } } return _arr; }
-
-function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
 
 
-
-
-
-
-var MONTHS = ['Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio', 'Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre', 'Diciembre'];
-var WEEKDAYS_LONG = ['Domingo', 'Lunes', 'Martes', 'Miercoles', 'Jueves', 'Viernes', 'Sabado'];
-var WEEKDAYS_SHORT = ['Do', 'Lu', 'Ma', 'Mi', 'Ju', 'Vi', 'Sa'];
-
-var Viajes = function Viajes() {
-  var _useState = Object(react__WEBPACK_IMPORTED_MODULE_0__["useState"])({}),
-      _useState2 = _slicedToArray(_useState, 2),
-      data = _useState2[0],
-      setData = _useState2[1];
-
-  var _useState3 = Object(react__WEBPACK_IMPORTED_MODULE_0__["useState"])([]),
-      _useState4 = _slicedToArray(_useState3, 2),
-      users = _useState4[0],
-      setUsers = _useState4[1];
-
-  var _useState5 = Object(react__WEBPACK_IMPORTED_MODULE_0__["useState"])([{
-    viajes: []
-  }]),
-      _useState6 = _slicedToArray(_useState5, 2),
-      viajes = _useState6[0],
-      setViajes = _useState6[1];
-
-  var _useState7 = Object(react__WEBPACK_IMPORTED_MODULE_0__["useState"])([]),
-      _useState8 = _slicedToArray(_useState7, 2),
-      gastos = _useState8[0],
-      setGastos = _useState8[1];
-
-  var _useState9 = Object(react__WEBPACK_IMPORTED_MODULE_0__["useState"])([]),
-      _useState10 = _slicedToArray(_useState9, 2),
-      anticipos = _useState10[0],
-      setAnticipos = _useState10[1];
-
-  var _useState11 = Object(react__WEBPACK_IMPORTED_MODULE_0__["useState"])({
-    form: false
-  }),
-      _useState12 = _slicedToArray(_useState11, 2),
-      newGasto = _useState12[0],
-      setNewGasto = _useState12[1];
-
-  var _useState13 = Object(react__WEBPACK_IMPORTED_MODULE_0__["useState"])({
-    form: false
-  }),
-      _useState14 = _slicedToArray(_useState13, 2),
-      newAnticipo = _useState14[0],
-      setNewAnticipo = _useState14[1];
-
-  Object(react__WEBPACK_IMPORTED_MODULE_0__["useEffect"])(function () {
-    $('#js-example-basic-multiple').select2();
-  }, []);
-
-  var _getUsers = function _getUsers(d) {
-    axios.get('/users', {
-      params: {
-        departamento: d
-      }
-    }).then(function (r) {
-      setUsers(r.data);
-    });
-  };
-
-  var _buscar = function _buscar() {
-    var users = $('#js-example-basic-multiple').select2('val');
-    setData(_objectSpread({}, data, {
-      users: users
-    }));
-    axios.get('/viaje', {
-      params: _objectSpread({}, data, {
-        users: users
-      })
-    }).then(function (r) {
-      setViajes(r.data);
-    })["catch"](function (r) {
-      return setViajes([]);
-    });
-  };
-
-  var _excel = function _excel() {
-    var users = $('#js-example-basic-multiple').select2('val');
-    setData(_objectSpread({}, data, {
-      users: users
-    }));
-    var uri = axios.defaults.baseURL + 'excel?' + $.param(_objectSpread({}, data, {
-      users: users
-    }));
-    window.open(uri);
-    axios.get('/excel', {
-      params: _objectSpread({}, data, {
-        users: users
-      })
-    }).then(function (r) {
-      console.log(r.data);
-    });
-  };
-
-  var _newGasto = function _newGasto() {
-    var reader = new FileReader();
-    reader.readAsDataURL(newGasto.imagen);
-
-    reader.onload = function () {
-      axios.post('/gasto', _objectSpread({}, newGasto, {
-        imagen: reader.result
-      })).then(function (r) {
-        setGastos([].concat(_toConsumableArray(gastos), [r.data]));
-        setNewGasto(_objectSpread({}, newGasto, {
-          form: false
-        }));
-      });
-    };
-  };
+var ModalAnticipo = function ModalAnticipo(_ref) {
+  var anticipos = _ref.anticipos,
+      setAnticipos = _ref.setAnticipos,
+      newAnticipo = _ref.newAnticipo,
+      setNewAnticipo = _ref.setNewAnticipo,
+      viajes = _ref.viajes,
+      setViajes = _ref.setViajes,
+      model = _ref.model;
 
   var _newAnticipo = function _newAnticipo() {
-    console.log(newAnticipo);
+    var viaje_id = model.viaje_id;
+    var user_id = model.user_id;
     axios.post('/anticipo', newAnticipo).then(function (r) {
       setAnticipos([].concat(_toConsumableArray(anticipos), [r.data]));
       setNewAnticipo(_objectSpread({}, newAnticipo, {
         form: false
       }));
-    });
-  };
+      var viajs = viajes.map(function (v) {
+        if (v.id == user_id) {
+          var viajess = v.viajes.map(function (vi) {
+            if (vi.id == viaje_id) {
+              return _objectSpread({}, vi, {
+                anticipos: [].concat(_toConsumableArray(vi.anticipos), [r.data])
+              });
+            }
 
-  var _destroyGasto = function _destroyGasto(g) {
-    axios["delete"]('deletegasto', {
-      params: g
-    }).then(function (r) {
-      var gasti = gastos.filter(function (a) {
-        return a.id !== g.id;
+            return vi;
+          });
+          return _objectSpread({}, v, {
+            viajes: viajess
+          });
+        }
+
+        return v;
       });
-      setGastos(gasti);
+      setViajes(viajs);
     });
   };
 
@@ -72209,29 +72098,7 @@ var Viajes = function Viajes() {
     });
   };
 
-  var _destroyViaje = function _destroyViaje(v) {
-    axios["delete"]('deleteviaje', {
-      params: v
-    }).then(function (r) {
-      var via = viajes.map(function (u) {
-        u.viajes = u.viajes.filter(function (a) {
-          return a.id !== v.id;
-        });
-        return u;
-      });
-      setViajes(via);
-    });
-  };
-
   return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-    className: "container"
-  }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-    className: "float-right"
-  }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
-    onClick: _excel,
-    type: "button",
-    className: "btn btn-success"
-  }, "Excel export")), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
     className: "modal fade bd-anticipos-modal-xl",
     tabIndex: "-1",
     role: "dialog",
@@ -72265,12 +72132,21 @@ var Viajes = function Viajes() {
     scope: "col"
   }, "Fecha"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("th", {
     scope: "col"
+  }, "Foto"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("th", {
+    scope: "col"
   }, "eliminar"))), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("tbody", null, anticipos.map(function (a, i) {
     return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("tr", {
       key: i
     }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("th", {
       scope: "row"
-    }, i + 1), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("td", null, "$", a.anticipo), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("td", null, a.created_at), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("td", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("a", {
+    }, i + 1), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("td", null, "$", a.anticipo), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("td", null, a.created_at), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("td", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("img", {
+      style: {
+        height: 100
+      },
+      src: axios.defaults.baseURL + 'img/' + a.user_id + '/viajes/' + a.viaje_id + '/anticipos/' + a.id + '.jpg',
+      alt: "imagen",
+      className: "img-thumbnail"
+    })), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("td", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("a", {
       href: "#",
       onClick: function onClick() {
         return _destroyAnticipo(a);
@@ -72310,7 +72186,98 @@ var Viajes = function Viajes() {
     type: "button",
     className: "btn btn-secondary",
     "data-dismiss": "modal"
-  }, "Cerrar"))))), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+  }, "Cerrar")))));
+};
+
+/* harmony default export */ __webpack_exports__["default"] = (ModalAnticipo);
+
+/***/ }),
+
+/***/ "./resources/js/components/ModalGasto.js":
+/*!***********************************************!*\
+  !*** ./resources/js/components/ModalGasto.js ***!
+  \***********************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
+function _toConsumableArray(arr) { return _arrayWithoutHoles(arr) || _iterableToArray(arr) || _nonIterableSpread(); }
+
+function _nonIterableSpread() { throw new TypeError("Invalid attempt to spread non-iterable instance"); }
+
+function _iterableToArray(iter) { if (Symbol.iterator in Object(iter) || Object.prototype.toString.call(iter) === "[object Arguments]") return Array.from(iter); }
+
+function _arrayWithoutHoles(arr) { if (Array.isArray(arr)) { for (var i = 0, arr2 = new Array(arr.length); i < arr.length; i++) { arr2[i] = arr[i]; } return arr2; } }
+
+function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { keys.push.apply(keys, Object.getOwnPropertySymbols(object)); } if (enumerableOnly) keys = keys.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); return keys; }
+
+function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { ownKeys(source, true).forEach(function (key) { _defineProperty(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { ownKeys(source).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
+
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
+
+
+var ModalGasto = function ModalGasto(_ref) {
+  var gastos = _ref.gastos,
+      setGastos = _ref.setGastos,
+      newGasto = _ref.newGasto,
+      setNewGasto = _ref.setNewGasto,
+      viajes = _ref.viajes,
+      setViajes = _ref.setViajes,
+      model = _ref.model;
+
+  var _newGasto = function _newGasto() {
+    var viaje_id = model.viaje_id;
+    var user_id = model.user_id;
+    var reader = new FileReader();
+    reader.readAsDataURL(newGasto.imagen);
+
+    reader.onload = function () {
+      axios.post('/gasto', _objectSpread({}, newGasto, {
+        imagen: reader.result
+      })).then(function (r) {
+        setGastos([].concat(_toConsumableArray(gastos), [r.data]));
+        setNewGasto(_objectSpread({}, newGasto, {
+          form: false
+        }));
+        var viajs = viajes.map(function (v) {
+          if (v.id == user_id) {
+            var viajess = v.viajes.map(function (vi) {
+              if (vi.id == viaje_id) {
+                return _objectSpread({}, vi, {
+                  gastos: [].concat(_toConsumableArray(vi.gastos), [r.data])
+                });
+              }
+
+              return vi;
+            });
+            return _objectSpread({}, v, {
+              viajes: viajess
+            });
+          }
+
+          return v;
+        });
+        setViajes(viajs);
+      });
+    };
+  };
+
+  var _destroyGasto = function _destroyGasto(g) {
+    axios["delete"]('deletegasto', {
+      params: g
+    }).then(function (r) {
+      var gasti = gastos.filter(function (a) {
+        return a.id !== g.id;
+      });
+      setGastos(gasti);
+    });
+  };
+
+  return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
     className: "modal fade bd-gastos-modal-xl",
     tabIndex: "-1",
     role: "dialog",
@@ -72357,7 +72324,7 @@ var Viajes = function Viajes() {
       style: {
         height: 100
       },
-      src: axios.defaults.baseURL + 'img/' + g.user_id + '/viajes/' + g.viaje_id + '/' + g.id + '.jpg',
+      src: axios.defaults.baseURL + 'img/' + g.user_id + '/viajes/' + g.viaje_id + '/gastos/' + g.id + '.jpg',
       alt: "imagen",
       className: "img-thumbnail"
     })), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("td", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("a", {
@@ -72430,7 +72397,205 @@ var Viajes = function Viajes() {
     type: "button",
     className: "btn btn-secondary",
     "data-dismiss": "modal"
-  }, "Cerrar"))))), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+  }, "Cerrar")))));
+};
+
+/* harmony default export */ __webpack_exports__["default"] = (ModalGasto);
+
+/***/ }),
+
+/***/ "./resources/js/components/Viaticos.js":
+/*!*********************************************!*\
+  !*** ./resources/js/components/Viaticos.js ***!
+  \*********************************************/
+/*! no exports provided */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var react_dom__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react-dom */ "./node_modules/react-dom/index.js");
+/* harmony import */ var react_dom__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(react_dom__WEBPACK_IMPORTED_MODULE_1__);
+/* harmony import */ var react_day_picker__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! react-day-picker */ "./node_modules/react-day-picker/DayPicker.js");
+/* harmony import */ var react_day_picker__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(react_day_picker__WEBPACK_IMPORTED_MODULE_2__);
+/* harmony import */ var react_day_picker_DayPickerInput__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! react-day-picker/DayPickerInput */ "./node_modules/react-day-picker/DayPickerInput.js");
+/* harmony import */ var react_day_picker_DayPickerInput__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(react_day_picker_DayPickerInput__WEBPACK_IMPORTED_MODULE_3__);
+/* harmony import */ var react_day_picker_lib_style_css__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! react-day-picker/lib/style.css */ "./node_modules/react-day-picker/lib/style.css");
+/* harmony import */ var react_day_picker_lib_style_css__WEBPACK_IMPORTED_MODULE_4___default = /*#__PURE__*/__webpack_require__.n(react_day_picker_lib_style_css__WEBPACK_IMPORTED_MODULE_4__);
+/* harmony import */ var _ModalGasto__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./ModalGasto */ "./resources/js/components/ModalGasto.js");
+/* harmony import */ var _ModalAnticipo__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./ModalAnticipo */ "./resources/js/components/ModalAnticipo.js");
+function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { keys.push.apply(keys, Object.getOwnPropertySymbols(object)); } if (enumerableOnly) keys = keys.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); return keys; }
+
+function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { ownKeys(source, true).forEach(function (key) { _defineProperty(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { ownKeys(source).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
+
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
+function _slicedToArray(arr, i) { return _arrayWithHoles(arr) || _iterableToArrayLimit(arr, i) || _nonIterableRest(); }
+
+function _nonIterableRest() { throw new TypeError("Invalid attempt to destructure non-iterable instance"); }
+
+function _iterableToArrayLimit(arr, i) { var _arr = []; var _n = true; var _d = false; var _e = undefined; try { for (var _i = arr[Symbol.iterator](), _s; !(_n = (_s = _i.next()).done); _n = true) { _arr.push(_s.value); if (i && _arr.length === i) break; } } catch (err) { _d = true; _e = err; } finally { try { if (!_n && _i["return"] != null) _i["return"](); } finally { if (_d) throw _e; } } return _arr; }
+
+function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
+
+
+
+
+
+
+
+
+var MONTHS = ['Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio', 'Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre', 'Diciembre'];
+var WEEKDAYS_LONG = ['Domingo', 'Lunes', 'Martes', 'Miercoles', 'Jueves', 'Viernes', 'Sabado'];
+var WEEKDAYS_SHORT = ['Do', 'Lu', 'Ma', 'Mi', 'Ju', 'Vi', 'Sa'];
+
+var Viajes = function Viajes() {
+  var _useState = Object(react__WEBPACK_IMPORTED_MODULE_0__["useState"])({}),
+      _useState2 = _slicedToArray(_useState, 2),
+      data = _useState2[0],
+      setData = _useState2[1];
+
+  var _useState3 = Object(react__WEBPACK_IMPORTED_MODULE_0__["useState"])([]),
+      _useState4 = _slicedToArray(_useState3, 2),
+      users = _useState4[0],
+      setUsers = _useState4[1];
+
+  var _useState5 = Object(react__WEBPACK_IMPORTED_MODULE_0__["useState"])([]),
+      _useState6 = _slicedToArray(_useState5, 2),
+      gastos = _useState6[0],
+      setGastos = _useState6[1];
+
+  var _useState7 = Object(react__WEBPACK_IMPORTED_MODULE_0__["useState"])([{
+    viajes: []
+  }]),
+      _useState8 = _slicedToArray(_useState7, 2),
+      viajes = _useState8[0],
+      setViajes = _useState8[1];
+
+  var _useState9 = Object(react__WEBPACK_IMPORTED_MODULE_0__["useState"])([]),
+      _useState10 = _slicedToArray(_useState9, 2),
+      anticipos = _useState10[0],
+      setAnticipos = _useState10[1];
+
+  var _useState11 = Object(react__WEBPACK_IMPORTED_MODULE_0__["useState"])({
+    form: false
+  }),
+      _useState12 = _slicedToArray(_useState11, 2),
+      newGasto = _useState12[0],
+      setNewGasto = _useState12[1];
+
+  var _useState13 = Object(react__WEBPACK_IMPORTED_MODULE_0__["useState"])({
+    form: false
+  }),
+      _useState14 = _slicedToArray(_useState13, 2),
+      newAnticipo = _useState14[0],
+      setNewAnticipo = _useState14[1];
+
+  var _useState15 = Object(react__WEBPACK_IMPORTED_MODULE_0__["useState"])({
+    user_id: '',
+    viaje_id: ''
+  }),
+      _useState16 = _slicedToArray(_useState15, 2),
+      model = _useState16[0],
+      setModel = _useState16[1];
+
+  Object(react__WEBPACK_IMPORTED_MODULE_0__["useEffect"])(function () {
+    $('#js-example-basic-multiple').select2();
+    console.log(viajes);
+  }, [viajes]);
+
+  var _getUsers = function _getUsers(d) {
+    axios.get('/users', {
+      params: {
+        departamento: d
+      }
+    }).then(function (r) {
+      setUsers(r.data);
+    });
+  };
+
+  var _buscar = function _buscar() {
+    var users = $('#js-example-basic-multiple').select2('val');
+    setData(_objectSpread({}, data, {
+      users: users
+    }));
+    axios.get('/viaje', {
+      params: _objectSpread({}, data, {
+        users: users
+      })
+    }).then(function (r) {
+      setViajes(r.data);
+      console.log(r.data);
+    })["catch"](function (r) {
+      return setViajes([]);
+    });
+  };
+
+  var _excel = function _excel() {
+    var users = $('#js-example-basic-multiple').select2('val');
+    setData(_objectSpread({}, data, {
+      users: users
+    }));
+    var uri = axios.defaults.baseURL + 'excel?' + $.param(_objectSpread({}, data, {
+      users: users
+    }));
+    window.open(uri);
+    axios.get('/excel', {
+      params: _objectSpread({}, data, {
+        users: users
+      })
+    }).then(function (r) {
+      console.log(r.data);
+    });
+  };
+
+  var _destroyViaje = function _destroyViaje(v) {
+    axios["delete"]('deleteviaje', {
+      params: v
+    }).then(function (r) {
+      var via = viajes.map(function (u) {
+        u.viajes = u.viajes.filter(function (a) {
+          return a.id !== v.id;
+        });
+        return u;
+      });
+      setViajes(via);
+    });
+  };
+
+  var _excelViaje = function _excelViaje(viaje) {
+    var uri = axios.defaults.baseURL + 'excel_viaje?' + $.param({
+      viaje_id: viaje
+    });
+    window.open(uri);
+  };
+
+  return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+    className: "container"
+  }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+    className: "float-right"
+  }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
+    onClick: _excel,
+    type: "button",
+    className: "btn btn-success"
+  }, "Excel Resumen")), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_ModalAnticipo__WEBPACK_IMPORTED_MODULE_6__["default"], {
+    anticipos: anticipos,
+    setAnticipos: setAnticipos,
+    newAnticipo: newAnticipo,
+    setNewAnticipo: setNewAnticipo,
+    setViajes: setViajes,
+    viajes: viajes,
+    model: model
+  }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_ModalGasto__WEBPACK_IMPORTED_MODULE_5__["default"], {
+    gastos: gastos,
+    setGastos: setGastos,
+    newGasto: newGasto,
+    setNewGasto: setNewGasto,
+    setViajes: setViajes,
+    viajes: viajes,
+    model: model
+  }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
     className: "row justify-content-center"
   }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("p", null, "inicio"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_day_picker_DayPickerInput__WEBPACK_IMPORTED_MODULE_3___default.a, {
     inputProps: {
@@ -72522,13 +72687,15 @@ var Viajes = function Viajes() {
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "card-body"
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-        className: "float-right"
+        className: "row"
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "col-md-6"
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("a", {
         onClick: function onClick() {
           return _destroyViaje(v);
         },
         href: "#"
-      }, "eliminar")), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h5", {
+      }, "eliminar"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h5", {
         className: "card-title"
       }, u.colaborador), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h6", {
         className: "card-subtitle mb-2 text-muted"
@@ -72546,6 +72713,10 @@ var Viajes = function Viajes() {
             viaje_id: v.id,
             user_id: u.id
           }));
+          setModel({
+            user_id: u.id,
+            viaje_id: v.id
+          });
         },
         className: "card-link",
         "data-toggle": "modal",
@@ -72558,11 +72729,40 @@ var Viajes = function Viajes() {
             viaje_id: v.id,
             user_id: u.id
           }));
+          setModel({
+            user_id: u.id,
+            viaje_id: v.id
+          });
         },
         className: "card-link",
         "data-toggle": "modal",
         "data-target": ".bd-anticipos-modal-xl"
-      }, "Anticipos")));
+      }, "Anticipos")), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "col"
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "card",
+        style: {
+          top: 30
+        }
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "card-header"
+      }, "Adeudo"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "card-body"
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h4", {
+        className: "card-title"
+      }, "$", (v.anticipos.reduce(function (a, b) {
+        return a + parseFloat(b.anticipo);
+      }, 0) - v.gastos.reduce(function (a, b) {
+        return a + parseFloat(b.costo);
+      }, 0)).toFixed(2))))), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "col"
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
+        onClick: function onClick() {
+          return _excelViaje(v.id);
+        },
+        type: "button",
+        className: "btn btn-dark float-right"
+      }, "Exportar Viaje")))));
     });
   })))));
 };

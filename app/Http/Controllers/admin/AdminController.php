@@ -11,6 +11,7 @@ use App\Viaje;
 use App\User;
 use App\Gasto;
 use App\Anticipo;
+use App\Exports\Export;
 
 class AdminController extends Controller
 {
@@ -127,7 +128,7 @@ class AdminController extends Controller
 	    $gasto->user_id=$request->user_id;
 	    $gasto->viaje_id=$request->viaje_id;
 	    $gasto->save();
-	    $path = storage_path().'/img/'.$request->user_id.'/viajes/'.$request->viaje_id;
+	    $path = storage_path().'/img/'.$request->user_id.'/viajes/'.$request->viaje_id.'/gastos';
 	    if(!\File::exists($path)){
 			\File::makeDirectory($path, $mode = 0777, true, true);
 	    }
@@ -214,6 +215,43 @@ class AdminController extends Controller
 	    $viaje=Viaje::findOrFail($request->id);
 	    $viaje->delete();
 	    return response()->json($viaje);
+
+    }
+    public function excel_viaje(Request $request)
+    {
+	    $gastos=Gasto::select('motivo','created_at','costo')
+		    ->where('viaje_id',$request->viaje_id)
+		    ->get();
+	    $totalGastos=Gasto::select('motivo','created_at','costo')
+		    ->where('viaje_id',$request->viaje_id)
+		    ->sum('costo');
+	    $transporte=Gasto::select('motivo','created_at','costo')
+		    ->where('viaje_id',$request->viaje_id)
+		    ->where('motivo','Transporte')
+		    ->sum('costo');
+	    $hospedaje=Gasto::select('motivo','created_at','costo')
+		    ->where('viaje_id',$request->viaje_id)
+		    ->where('motivo','Hospedaje')
+		    ->sum('costo');
+	    $comida=Gasto::select('motivo','created_at','costo')
+		    ->where('viaje_id',$request->viaje_id)
+		    ->where('motivo','Comida')
+		    ->sum('costo');
+	    $otros=Gasto::select('motivo','created_at','costo')
+		    ->where('viaje_id',$request->viaje_id)
+		    ->whereNotIn('motivo',['Transporte','Hospedaje','Comida'])
+		    ->sum('costo');
+
+	    $viaje=Viaje::find($request->viaje_id);
+	    $user=User::find($viaje->user_id);
+	    $viaticos=Anticipo::where('viaje_id',$request->viaje_id)->sum('anticipo');
+
+
+	return Excel::download(new Export($viaje, $gastos, $user, $viaticos, $totalGastos, $transporte, $hospedaje, $comida, $otros), 'viaticos.xlsx');
+
+
+
+
 
     }
 
