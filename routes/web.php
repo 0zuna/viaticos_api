@@ -27,3 +27,4 @@ Route::delete('/deleteviaje', 'admin\AdminController@deleteviaje');
 Route::delete('/deleteanticipo', 'admin\AdminController@deleteanticipo');
 Route::get('/excel', 'admin\AdminController@excel');
 Route::get('/excel_viaje', 'admin\AdminController@excel_viaje');
+Route::post('/adeudos', 'admin\AdminController@adeudos');

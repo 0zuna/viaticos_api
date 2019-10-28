@@ -72500,10 +72500,14 @@ var Viajes = function Viajes() {
       model = _useState16[0],
       setModel = _useState16[1];
 
+  var _useState17 = Object(react__WEBPACK_IMPORTED_MODULE_0__["useState"])([]),
+      _useState18 = _slicedToArray(_useState17, 2),
+      adeudos = _useState18[0],
+      setAdeudos = _useState18[1];
+
   Object(react__WEBPACK_IMPORTED_MODULE_0__["useEffect"])(function () {
     $('#js-example-basic-multiple').select2();
-    console.log(viajes);
-  }, [viajes]);
+  }, []);
 
   var _getUsers = function _getUsers(d) {
     axios.get('/users', {
@@ -72516,6 +72520,7 @@ var Viajes = function Viajes() {
   };
 
   var _buscar = function _buscar() {
+    setAdeudos([]);
     var users = $('#js-example-basic-multiple').select2('val');
     setData(_objectSpread({}, data, {
       users: users
@@ -72526,7 +72531,6 @@ var Viajes = function Viajes() {
       })
     }).then(function (r) {
       setViajes(r.data);
-      console.log(r.data);
     })["catch"](function (r) {
       return setViajes([]);
     });
@@ -72569,6 +72573,19 @@ var Viajes = function Viajes() {
       viaje_id: viaje
     });
     window.open(uri);
+  };
+
+  var _adeudosTotales = function _adeudosTotales() {
+    setViajes([]);
+    var users = $('#js-example-basic-multiple').select2('val');
+    axios.post('/adeudos', {
+      users: users
+    }).then(function (r) {
+      console.log(r.data);
+      setAdeudos(r.data);
+    })["catch"](function (r) {
+      return console.log(r);
+    });
   };
 
   return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
@@ -72675,7 +72692,11 @@ var Viajes = function Viajes() {
     onClick: _buscar,
     type: "button",
     className: "btn btn-dark"
-  }, "Buscar")), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+  }, "Buscar Viajes"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
+    onClick: _adeudosTotales,
+    type: "button",
+    className: "btn btn-dark"
+  }, "Adeudos Totales")), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
     className: "col-md-12"
   }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
     className: "card"
@@ -72749,7 +72770,16 @@ var Viajes = function Viajes() {
       }, "Adeudo"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "card-body"
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h4", {
-        className: "card-title"
+        className: "card-title",
+        style: (v.anticipos.reduce(function (a, b) {
+          return a + parseFloat(b.anticipo);
+        }, 0) - v.gastos.reduce(function (a, b) {
+          return a + parseFloat(b.costo);
+        }, 0)).toFixed(2) >= 0 ? {
+          color: 'green'
+        } : {
+          color: 'red'
+        }
       }, "$", (v.anticipos.reduce(function (a, b) {
         return a + parseFloat(b.anticipo);
       }, 0) - v.gastos.reduce(function (a, b) {
@@ -72764,7 +72794,64 @@ var Viajes = function Viajes() {
         className: "btn btn-dark float-right"
       }, "Exportar Viaje")))));
     });
-  })))));
+  })), adeudos.map(function (a, i) {
+    return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+      key: i,
+      className: "card",
+      style: {
+        marginBottom: 100
+      }
+    }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("center", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("img", {
+      src: axios.defaults.baseURL + '/icon.png',
+      className: "card-img-top",
+      style: {
+        width: 200
+      }
+    })), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+      className: "card-body"
+    }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h5", {
+      className: "card-title"
+    }, a.colaborador), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("p", {
+      className: "card-text"
+    }, a.departamento), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("p", {
+      className: "card-text"
+    }, a.telefono), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("a", {
+      href: "mailto:".concat(a.email),
+      className: "card-text"
+    }, a.email)), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h4", {
+      className: "card-title"
+    }, "Viajes"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("table", {
+      className: "table table-hover"
+    }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("thead", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("tr", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("th", {
+      scope: "col"
+    }, "#"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("th", {
+      scope: "col"
+    }, "Motivo"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("th", {
+      scope: "col"
+    }, "Fecha"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("th", {
+      scope: "col"
+    }, "Anticipo Total"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("th", {
+      scope: "col"
+    }, "Gasto Total"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("th", {
+      scope: "col"
+    }, "Adeudo"))), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("tbody", null, a.viajes.map(function (v, i) {
+      return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("tr", {
+        key: i
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("th", {
+        key: i
+      }, i++), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("td", null, v.motivo), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("td", null, v.inicio), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("td", null, v.anticipoTotal), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("td", null, v.gastoTotal), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("td", null, v.adeudo));
+    }))), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+      className: "col-12"
+    }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+      className: "float-right"
+    }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h4", {
+      style: a.adeudoTotal >= 0 ? {
+        color: 'green'
+      } : {
+        color: 'red'
+      }
+    }, "Adeudo total: ", a.adeudoTotal))));
+  }))));
 };
 
 if (document.getElementById('app')) {

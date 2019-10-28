@@ -19,11 +19,11 @@ const Viajes = () => {
 	const [newGasto, setNewGasto]=useState({form:false})
 	const [newAnticipo, setNewAnticipo]=useState({form:false})
 	const [model, setModel]=useState({user_id:'',viaje_id:''})
+	const [adeudos, setAdeudos]=useState([])
 
 	useEffect(()=>{
 		$('#js-example-basic-multiple').select2();
-		console.log(viajes)
-	},[viajes])
+	},[])
 
 	const _getUsers=(d)=>{
 		axios.get('/users',{params: {departamento:d}})
@@ -33,12 +33,12 @@ const Viajes = () => {
 	}
 
 	const _buscar=()=>{
+		setAdeudos([])
 		var users=$('#js-example-basic-multiple').select2('val')
 		setData({...data,users:users})
 		axios.get('/viaje',{params: {...data,users:users}})
 		.then((r)=>{
 			setViajes(r.data)
-			console.log(r.data)
 		}).catch(r=>setViajes([]))
 	}
 
@@ -67,6 +67,17 @@ const Viajes = () => {
 	const _excelViaje = (viaje) => {
 		const uri=(axios.defaults.baseURL+'excel_viaje?'+$.param({viaje_id:viaje}))
 		window.open(uri)
+	}
+
+	const _adeudosTotales = () => {
+		setViajes([])
+		var users=$('#js-example-basic-multiple').select2('val')
+		axios.post('/adeudos',{users})
+		.then(r=>{
+			console.log(r.data)
+			setAdeudos(r.data)
+		})
+		.catch(r=>console.log(r))
 	}
 
 	return (
@@ -110,7 +121,8 @@ const Viajes = () => {
 						<option value='todos'>Todos</option>
 						{users.map((user,i)=><option key={i} value={user.id}>{user.colaborador}</option>)}
 					</select>
-					<button onClick={_buscar} type="button" className="btn btn-dark">Buscar</button>
+					<button onClick={_buscar} type="button" className="btn btn-dark">Buscar Viajes</button>
+					<button onClick={_adeudosTotales} type="button" className="btn btn-dark">Adeudos Totales</button>
 				</div>
 				<div className="col-md-12">
 					<div className="card">
@@ -132,7 +144,7 @@ const Viajes = () => {
 								<div className="card" style={{top: 30}}>
 									<div className="card-header">Adeudo</div>
 									<div className="card-body">
-										<h4 className="card-title">${(v.anticipos.reduce((a,b)=>a+parseFloat(b.anticipo),0)-v.gastos.reduce((a,b)=>a+parseFloat(b.costo),0)).toFixed(2)}</h4>
+										<h4 className="card-title" style={(v.anticipos.reduce((a,b)=>a+parseFloat(b.anticipo),0)-v.gastos.reduce((a,b)=>a+parseFloat(b.costo),0)).toFixed(2)>=0?{color:'green'}:{color:'red'}}>${(v.anticipos.reduce((a,b)=>a+parseFloat(b.anticipo),0)-v.gastos.reduce((a,b)=>a+parseFloat(b.costo),0)).toFixed(2)}</h4>
 									</div>
 							</div>
 								</div>
@@ -146,6 +158,49 @@ const Viajes = () => {
 							)
 						)}
 					</div>
+						{adeudos.map((a,i)=>
+							<div key={i} className="card" style={{marginBottom: 100}}>
+							<center>
+								<img src={axios.defaults.baseURL+'/icon.png'} className="card-img-top" style={{width:200}}/>
+							</center>
+								<div className="card-body">
+									<h5 className="card-title">{a.colaborador}</h5>
+									<p className="card-text">{a.departamento}</p>
+									<p className="card-text">{a.telefono}</p>
+									<a href={`mailto:${a.email}`} className="card-text">{a.email}</a>
+								</div>
+								<h4 className="card-title">Viajes</h4>
+								<table className="table table-hover">
+									<thead>
+										<tr>
+											<th scope="col">#</th>
+											<th scope="col">Motivo</th>
+											<th scope="col">Fecha</th>
+											<th scope="col">Anticipo Total</th>
+											<th scope="col">Gasto Total</th>
+											<th scope="col">Adeudo</th>
+										</tr>
+									</thead>
+									<tbody>
+										{a.viajes.map((v,i)=>
+										<tr key={i}>
+											<th key={i}>{i++}</th>
+											<td>{v.motivo}</td>
+											<td>{v.inicio}</td>
+											<td>{v.anticipoTotal}</td>
+											<td>{v.gastoTotal}</td>
+											<td>{v.adeudo}</td>
+										</tr>
+										)}
+									</tbody>
+								</table>
+								<div className="col-12">
+								<div className="float-right">
+									<h4 style={a.adeudoTotal>=0?{color:'green'}:{color:'red'}}>Adeudo total: {a.adeudoTotal}</h4>
+								</div>
+								</div>
+							</div>
+						)}
 				</div>
 			</div>
 		</div>

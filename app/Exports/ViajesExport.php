@@ -29,11 +29,10 @@ class ViajesExport implements FromCollection, WithHeadings, ShouldAutoSize
             'NOMBRE',
             'TELEFONO',
             'VIAJE',
+            'TIPO',
+            'GASTO',
             'FECHA INICIO',
-            'FECHA FIN',
-            'ANTICIPO',
-	    'GASTO',
-	    'DIFERENCIA'
+            'FECHA FIN'
         ];
     }
 }
