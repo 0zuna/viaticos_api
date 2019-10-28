@@ -72839,7 +72839,7 @@ var Viajes = function Viajes() {
         key: i
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("th", {
         key: i
-      }, i++), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("td", null, v.motivo), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("td", null, v.inicio), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("td", null, v.anticipoTotal), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("td", null, v.gastoTotal), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("td", null, v.adeudo));
+      }, i++), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("td", null, v.motivo), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("td", null, v.inicio), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("td", null, "$", v.anticipoTotal.toFixed(2).replace(/\d(?=(\d{3})+\.)/g, '$&,')), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("td", null, "$", v.gastoTotal.toFixed(2).replace(/\d(?=(\d{3})+\.)/g, '$&,')), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("td", null, "$", v.adeudo.toFixed(2).replace(/\d(?=(\d{3})+\.)/g, '$&,')));
     }))), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
       className: "col-12"
     }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
@@ -72850,7 +72850,7 @@ var Viajes = function Viajes() {
       } : {
         color: 'red'
       }
-    }, "Adeudo total: ", a.adeudoTotal))));
+    }, "Adeudo total: $", a.adeudoTotal.toFixed(2).replace(/\d(?=(\d{3})+\.)/g, '$&,')))));
   }))));
 };
 

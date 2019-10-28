@@ -187,16 +187,16 @@ const Viajes = () => {
 											<th key={i}>{i++}</th>
 											<td>{v.motivo}</td>
 											<td>{v.inicio}</td>
-											<td>{v.anticipoTotal}</td>
-											<td>{v.gastoTotal}</td>
-											<td>{v.adeudo}</td>
+											<td>${(v.anticipoTotal).toFixed(2).replace(/\d(?=(\d{3})+\.)/g, '$&,')}</td>
+											<td>${(v.gastoTotal).toFixed(2).replace(/\d(?=(\d{3})+\.)/g, '$&,')}</td>
+											<td>${(v.adeudo).toFixed(2).replace(/\d(?=(\d{3})+\.)/g, '$&,')}</td>
 										</tr>
 										)}
 									</tbody>
 								</table>
 								<div className="col-12">
 								<div className="float-right">
-									<h4 style={a.adeudoTotal>=0?{color:'green'}:{color:'red'}}>Adeudo total: {a.adeudoTotal}</h4>
+									<h4 style={a.adeudoTotal>=0?{color:'green'}:{color:'red'}}>Adeudo total: ${a.adeudoTotal.toFixed(2).replace(/\d(?=(\d{3})+\.)/g, '$&,')}</h4>
 								</div>
 								</div>
 							</div>
