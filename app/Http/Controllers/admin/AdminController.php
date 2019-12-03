@@ -75,6 +75,14 @@ class AdminController extends Controller
 			->get();
 			//whereBetween('inicio',[$i,$f])->with(['gastos','anticipos'])->get();
 		}
+		\Excel::store(new ViajesExport($viajes), 'viajes.xlsx');
+		$data = base64_encode(file_get_contents(storage_path('app/viajes.xlsx')));
+		$response =  array(
+			'name' => "viajes.xlsx",
+			'file' => "data:application/vnd.openxmlformats-officedocument.spreadsheetml.sheet;base64,".$data
+		);
+		return response()->json($response);
+
 			return Excel::download(new ViajesExport($viajes),'viajes.xlsx');
 			return response()->json($viajes);
 	}
@@ -162,7 +170,15 @@ class AdminController extends Controller
 		$viaje=Viaje::find($request->viaje_id);
 		$user=User::find($viaje->user_id);
 		$viaticos=Anticipo::where('viaje_id',$request->viaje_id)->sum('anticipo');
-		return Excel::download(new Export($viaje, $gastos, $user, $viaticos, $totalGastos, $transporte, $hospedaje, $comida, $otros), 'viaticos.xlsx');
+
+		\Excel::store(new Export($viaje, $gastos, $user, $viaticos, $totalGastos, $transporte, $hospedaje, $comida, $otros), 'viaticos.xlsx');
+		$data = base64_encode(file_get_contents(storage_path('app/viaticos.xlsx')));
+		$response =  array(
+			'name' => "viaticos.xlsx",
+			'file' => "data:application/vnd.openxmlformats-officedocument.spreadsheetml.sheet;base64,".$data
+		);
+		return response()->json($response);
+
 	}
 
 	public function adeudos (Request $request)
