@@ -61,6 +61,7 @@ class ViajeController extends Controller
 		$viaje = new Viaje();
 		$viaje->motivo=$request->motivo;
 		$viaje->inicio=$request->inicio;
+		$viaje->area=$request->area;
 		$viaje->fin=$request->fin;
 		$viaje->user_id=$request->user()->id;
 		$viaje->save();
