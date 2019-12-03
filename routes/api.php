@@ -38,4 +38,5 @@ Route::group(['middleware' => 'auth:api'], function() {
 	Route::post('excel', 'admin\AdminController@excel');
 	Route::post('excel_viaje', 'admin\AdminController@excel_viaje');
 	Route::post('adeudos', 'admin\AdminController@adeudos');
+	Route::post('reporte', 'ExcelController@reporte');
 });

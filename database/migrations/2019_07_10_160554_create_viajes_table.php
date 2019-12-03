@@ -18,6 +18,7 @@ class CreateViajesTable extends Migration
             $table->string('motivo');
 	    $table->date('inicio');
 	    $table->date('fin');
+	    $table->string('area')->nullable();
 	    $table->string('status')->default('En Curso');
 	    $table->unsignedBigInteger('user_id');
 	    $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
