@@ -16,12 +16,20 @@ class ExcelController extends Controller
 		$i= Carbon::parse($request->inicio)->startOfDay()->toDateTimeString();
 		$f= Carbon::parse($request->fin)->startOfDay()->toDateTimeString();
 
-		$data=Viaje::join('users','viajes.user_id','users.id')
-		->join('gastos','viajes.id','gastos.viaje_id')
-		->selectRaw('viajes.id, viajes.created_at, viajes.area, "C01" as categoria, users.colaborador as name, gastos.motivo as descripcion, viajes.motivo as proveedor, viajes.status, gastos.costo')
-		->whereBetween('viajes.created_at',[$i,$f])
-		->whereIn('users.id',$request->users)
-		->get()->toArray();
+		if($request->users[0]=='todos'){
+			$data=Viaje::join('users','viajes.user_id','users.id')
+			->join('gastos','viajes.id','gastos.viaje_id')
+			->selectRaw('viajes.id, viajes.created_at, viajes.area, "C01" as categoria, users.colaborador as name, gastos.motivo as descripcion, viajes.motivo as proveedor, viajes.status, gastos.costo')
+			->whereBetween('viajes.created_at',[$i,$f])
+			->get()->toArray();
+		}else{
+			$data=Viaje::join('users','viajes.user_id','users.id')
+			->join('gastos','viajes.id','gastos.viaje_id')
+			->selectRaw('viajes.id, viajes.created_at, viajes.area, "C01" as categoria, users.colaborador as name, gastos.motivo as descripcion, viajes.motivo as proveedor, viajes.status, gastos.costo')
+			->whereBetween('viajes.created_at',[$i,$f])
+			->whereIn('users.id',$request->users)
+			->get()->toArray();
+		}
 
 		foreach ($data as $k=>$v) {
 			$anticipo=Anticipo::where('viaje_id',$v['id'])->sum('anticipo');
