@@ -19,7 +19,7 @@ class ExcelController extends Controller
 		if($request->users[0]=='todos'){
 			$data=Viaje::join('users','viajes.user_id','users.id')
 			->join('gastos','viajes.id','gastos.viaje_id')
-			->selectRaw('viajes.id, viajes.created_at, viajes.area, "C01" as categoria, users.colaborador as name, gastos.motivo as descripcion, viajes.motivo as proveedor, viajes.status, gastos.costo')
+			->selectRaw('viajes.id, viajes.created_at, viajes.area, "C01" as categoria, users.colaborador as name, gastos.motivo as descripcion, viajes.motivo as proveedor, viajes.status,"" as entregado, "" as comision, gastos.costo')
 			->whereBetween('viajes.created_at',[$i,$f])
 			->get()->toArray();
 		}else{
