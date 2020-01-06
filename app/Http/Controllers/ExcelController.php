@@ -53,28 +53,29 @@ class ExcelController extends Controller
 			->join('expense.areas','expense.solicituds.area_id','expense.areas.id')
 			->join('expense.categorias','expense.solicituds.categoria_id','expense.categorias.id')
 			->join('expense.users','expense.solicituds.user_id','expense.users.id')
-			->selectRaw('expense.solicituds.id as folio, expense.solicituds.created_at, expense.areas.locacion as area, expense.categorias.codigo, expense.users.name, expense.solicituds.descripcion, expense.solicituds.proveedor_id as proveedor, expense.solicituds.status, "" as comprobado, expense.solicituds.monto, expense.solicituds.comision')
+			->selectRaw('expense.solicituds.id as folio, expense.solicituds.created_at, expense.areas.locacion as area, expense.categorias.codigo, expense.users.name, expense.solicituds.descripcion, expense.solicituds.proveedor_id as proveedor, expense.solicituds.status, expense.solicituds.comprobado, expense.solicituds.monto, expense.solicituds.comision, "" as devolucion')
 			->whereBetween('expense.solicituds.created_at', [$i,$f])
 			->get()->toArray();
 
 		foreach ($data2 as $k=>$v) {
 			$data2[$k]=(array)$v;
-			$r=\DB::table('expense.gastos')
-				->where('expense.gastos.solicitud_id',$v->folio)
+
+			$r=\DB::table('expense.cajadevolucions')
+				->where('expense.cajadevolucions.solicitud_id',$v->folio)
 				->sum('monto');
 
-			$data2[$k]['comprobado']=strval($r);
-			$data2[$k]['saldo']=strval($data2[$k]['monto']-$r);
+			$data2[$k]['saldo']=strval($data2[$k]['monto']-$data2[$k]['comprobado']-$r);
 			$data2[$k]['terogado']=strval($r+$data2[$k]['comision']);
 			$proveedor=\DB::table('expense.proveedors')->select('expense.proveedors.nombre')->where('expense.proveedors.id',$data2[$k]['proveedor'])->first();
 			$data2[$k]['proveedor']=!empty($proveedor)?$proveedor->nombre:'Efectivo';
 
 			$s='D-'.str_pad($data2[$k]['folio'], 5, "0", STR_PAD_LEFT);
 			$data2[$k]['folio']=$s;
+			$data2[$k]['devolucion']=strval($r);
 		}
 
 
-		$columns=['Folio', 'Fecha', 'Area', 'Categoría', 'Colaborador', 'Descripción', 'Proveedor', 'Status', 'D.Comprobado', 'D.Entregado', 'Comisión', 'Saldo', 'T Erogado U'];
+		$columns=['Folio', 'Fecha', 'Area', 'Categoría', 'Colaborador', 'Descripción', 'Proveedor', 'Status', 'D.Comprobado', 'D.Entregado', 'Comisión', 'Saldo', 'T Erogado U', 'Devolución'];
 		\Excel::store(new ExportMultiple($columns, collect(array_merge((array)$data2,$data))), 'reporte1.xlsx');
 		$data = base64_encode(file_get_contents(storage_path('app/reporte1.xlsx')));
 		$response =  array(
