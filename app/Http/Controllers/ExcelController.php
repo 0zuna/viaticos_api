@@ -19,13 +19,13 @@ class ExcelController extends Controller
 		if($request->users[0]=='todos'){
 			$data=Viaje::join('users','viajes.user_id','users.id')
 			->join('gastos','viajes.id','gastos.viaje_id')
-			->selectRaw('viajes.id, viajes.created_at, viajes.area, "C01" as categoria, users.colaborador as name, gastos.motivo as descripcion, viajes.motivo as proveedor, viajes.status, gastos.costo')
+			->selectRaw('viajes.id, viajes.created_at, viajes.area, "C01" as categoria, users.colaborador as name, gastos.motivo as descripcion, viajes.motivo as proveedor, viajes.status,"" as entregado, "" as comision, gastos.costo')
 			->whereBetween('viajes.created_at',[$i,$f])
 			->get()->toArray();
 		}else{
 			$data=Viaje::join('users','viajes.user_id','users.id')
 			->join('gastos','viajes.id','gastos.viaje_id')
-			->selectRaw('viajes.id, viajes.created_at, viajes.area, "C01" as categoria, users.colaborador as name, gastos.motivo as descripcion, viajes.motivo as proveedor, viajes.status, gastos.costo')
+			->selectRaw('viajes.id, viajes.created_at, viajes.area, "C01" as categoria, users.colaborador as name, gastos.motivo as descripcion, viajes.motivo as proveedor, viajes.status, "" as entregado, "" as comision, gastos.costo')
 			->whereBetween('viajes.created_at',[$i,$f])
 			->whereIn('users.id',$request->users)
 			->get()->toArray();
@@ -53,7 +53,7 @@ class ExcelController extends Controller
 			->join('expense.areas','expense.solicituds.area_id','expense.areas.id')
 			->join('expense.categorias','expense.solicituds.categoria_id','expense.categorias.id')
 			->join('expense.users','expense.solicituds.user_id','expense.users.id')
-			->selectRaw('expense.solicituds.id as folio, expense.solicituds.created_at, expense.areas.locacion as area, expense.categorias.codigo, expense.users.name, expense.solicituds.descripcion, expense.solicituds.proveedor_id as proveedor, expense.solicituds.status, expense.solicituds.comprobado, expense.solicituds.monto, expense.solicituds.comision, "" as devolucion')
+			->selectRaw('expense.solicituds.id as folio, expense.solicituds.created_at, expense.areas.locacion as area, expense.categorias.codigo, expense.users.name, expense.solicituds.descripcion, expense.solicituds.proveedor_id as proveedor, expense.solicituds.status, expense.solicituds.monto, expense.solicituds.comision, expense.solicituds.comprobado, "" as saldo, "" as terogado, "" as devolucion')
 			->whereBetween('expense.solicituds.created_at', [$i,$f])
 			->get()->toArray();
 
@@ -75,7 +75,7 @@ class ExcelController extends Controller
 		}
 
 
-		$columns=['Folio', 'Fecha', 'Area', 'Categoría', 'Colaborador', 'Descripción', 'Proveedor', 'Status', 'D.Comprobado', 'D.Entregado', 'Comisión', 'Saldo', 'T Erogado U', 'Devolución'];
+		$columns=['Folio', 'Fecha', 'Area', 'Categoría', 'Colaborador', 'Descripción', 'Proveedor', 'Status', 'D.Entregado', 'Comisión','D.Comprobado', 'Saldo', 'T Erogado U', 'Devolución'];
 		\Excel::store(new ExportMultiple($columns, collect(array_merge((array)$data2,$data))), 'reporte1.xlsx');
 		$data = base64_encode(file_get_contents(storage_path('app/reporte1.xlsx')));
 		$response =  array(
